@@ -55,6 +55,24 @@ namespace GFA.TDS.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PointerPosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""55a292a3-07e8-4bad-8f65-ed0b37bbad94"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""ea9191d2-8073-4fb6-b645-f7d7be373d4f"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -222,6 +240,28 @@ namespace GFA.TDS.Input
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""500f403d-1713-4ce4-9216-3e289a078f6d"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0ef2f3e5-01b3-426e-8278-75641ae791a1"",
+                    ""path"": ""<Pointer>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keybord & Mouse"",
+                    ""action"": ""PointerPosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -261,6 +301,8 @@ namespace GFA.TDS.Input
             m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
             m_Player_Dodge = m_Player.FindAction("Dodge", throwIfNotFound: true);
             m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
+            m_Player_PointerPosition = m_Player.FindAction("PointerPosition", throwIfNotFound: true);
+            m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -325,6 +367,8 @@ namespace GFA.TDS.Input
         private readonly InputAction m_Player_Movement;
         private readonly InputAction m_Player_Dodge;
         private readonly InputAction m_Player_Shoot;
+        private readonly InputAction m_Player_PointerPosition;
+        private readonly InputAction m_Player_Look;
         public struct PlayerActions
         {
             private @GameInput m_Wrapper;
@@ -332,6 +376,8 @@ namespace GFA.TDS.Input
             public InputAction @Movement => m_Wrapper.m_Player_Movement;
             public InputAction @Dodge => m_Wrapper.m_Player_Dodge;
             public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
+            public InputAction @PointerPosition => m_Wrapper.m_Player_PointerPosition;
+            public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -350,6 +396,12 @@ namespace GFA.TDS.Input
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
+                @PointerPosition.started += instance.OnPointerPosition;
+                @PointerPosition.performed += instance.OnPointerPosition;
+                @PointerPosition.canceled += instance.OnPointerPosition;
+                @Look.started += instance.OnLook;
+                @Look.performed += instance.OnLook;
+                @Look.canceled += instance.OnLook;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -363,6 +415,12 @@ namespace GFA.TDS.Input
                 @Shoot.started -= instance.OnShoot;
                 @Shoot.performed -= instance.OnShoot;
                 @Shoot.canceled -= instance.OnShoot;
+                @PointerPosition.started -= instance.OnPointerPosition;
+                @PointerPosition.performed -= instance.OnPointerPosition;
+                @PointerPosition.canceled -= instance.OnPointerPosition;
+                @Look.started -= instance.OnLook;
+                @Look.performed -= instance.OnLook;
+                @Look.canceled -= instance.OnLook;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -403,6 +461,8 @@ namespace GFA.TDS.Input
             void OnMovement(InputAction.CallbackContext context);
             void OnDodge(InputAction.CallbackContext context);
             void OnShoot(InputAction.CallbackContext context);
+            void OnPointerPosition(InputAction.CallbackContext context);
+            void OnLook(InputAction.CallbackContext context);
         }
     }
 }

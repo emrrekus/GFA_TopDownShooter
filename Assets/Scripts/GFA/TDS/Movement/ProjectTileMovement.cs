@@ -38,7 +38,8 @@ namespace GFA.TDS.Movement
             get => _shouldBounce;
             set => _shouldBounce = value;
         }
-
+        [SerializeField]
+        private float _pushPower;
         private void Update()
         {
             var direction = transform.forward;
@@ -47,6 +48,10 @@ namespace GFA.TDS.Movement
 
             if (Physics.Raycast(transform.position, direction, out var hit, distance))
             {
+                if (hit.rigidbody)
+                {
+                    hit.rigidbody.AddForceAtPosition(-hit.normal* _speed *_pushPower,hit.point,ForceMode.Impulse);
+                }
                 if (ShouldDisableOnCollision)
                 {
                     enabled = false;

@@ -14,6 +14,8 @@ namespace GFA.TDS.Movement
         public Vector3 ExternalForce { get; set; }
         public Vector2 MovementInput { get; set; }
 
+        [SerializeField]
+        private float _movementSpeed = 4;
         private void Awake()
         {
             _characterController = GetComponent<CharacterController>();
@@ -23,7 +25,7 @@ namespace GFA.TDS.Movement
         {
             var movement = new Vector3(MovementInput.x, 0, MovementInput.y);
 
-            _characterController.SimpleMove(movement + ExternalForce);
+            _characterController.SimpleMove(movement* _movementSpeed + ExternalForce);
 
             ExternalForce = Vector3.Lerp(ExternalForce, Vector3.zero, 4 * Time.deltaTime);
         }

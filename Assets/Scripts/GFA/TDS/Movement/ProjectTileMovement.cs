@@ -76,13 +76,12 @@ namespace GFA.TDS.Movement
 
                 targetPosition = hit.point;
 
-                Impacted?.Invoke(hit);
-
-                if (ShouldBounce)
+              if (ShouldBounce)
                 {
                     var reflectedDirection = Vector3.Reflect(direction, hit.normal);
                     transform.forward = reflectedDirection;
                 }
+                Impacted?.Invoke(hit);
             }
 
 

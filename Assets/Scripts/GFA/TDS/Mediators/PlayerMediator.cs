@@ -34,14 +34,14 @@ namespace GFA.TDS.Mediators
         {
             _gameInput.Enable();
             _gameInput.Player.Dodge.performed += OnDodgeRequested;
-            _gameInput.Player.Shoot.performed += OnShootRequested;
+           
         }
 
         private void OnDisable()
         {
             _gameInput.Disable();
             _gameInput.Player.Dodge.performed -= OnDodgeRequested;
-            _gameInput.Player.Shoot.performed -= OnShootRequested;
+            
         }
 
         private void OnShootRequested(InputAction.CallbackContext obj)
@@ -54,8 +54,23 @@ namespace GFA.TDS.Mediators
             _characterMovement.ExternalForce += _characterMovement.Velocity.normalized * _dodgePower;
         }
 
-
+       
         private void Update()
+        {
+            HandleMovement();
+
+            HandleShooter();
+        }
+
+        private void HandleShooter()
+        {
+            if (_gameInput.Player.Shoot.IsPressed())
+            {
+                _shooter.Shoot();
+            }
+        }
+
+        private void HandleMovement()
         {
             var movementInput = _gameInput.Player.Movement.ReadValue<Vector2>();
             _characterMovement.MovementInput = movementInput;

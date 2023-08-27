@@ -44,10 +44,7 @@ namespace GFA.TDS.Mediators
             
         }
 
-        private void OnShootRequested(InputAction.CallbackContext obj)
-        {
-            _shooter.Shoot();;
-        }
+       
 
         private void OnDodgeRequested(InputAction.CallbackContext obj)
         {

@@ -23,7 +23,6 @@ namespace GFA.TDS
 
             var inst = Instantiate(_projectilePrefab, _shootTransform.position,_shootTransform.rotation);
             
-
             _lastShootTime = Time.time;
         }
     }

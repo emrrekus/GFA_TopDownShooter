@@ -9,10 +9,14 @@ namespace GFA.TDS
 {
     public class ProjectileDamage : MonoBehaviour
     {
+        [SerializeField] private float _damage;
 
-        [SerializeField]
-        private float _damage = 1;
-        
+        public float Damage
+        {
+            get => _damage;
+            set => _damage = value;
+        }
+
         private ProjectTileMovement _projectTileMovement;
 
         private void Awake()
@@ -24,20 +28,19 @@ namespace GFA.TDS
         {
             _projectTileMovement.Impacted += OnImpacted;
         }
- 
+
         private void OnDisable()
         {
             _projectTileMovement.Impacted -= OnImpacted;
         }
-        
-        
+
+
         private void OnImpacted(RaycastHit obj)
         {
             if (obj.transform.TryGetComponent<IDamageable>(out var damageable))
             {
-                damageable.ApplyDamage(_damage,gameObject);
+                damageable.ApplyDamage(_damage, gameObject);
             }
         }
     }
 }
-

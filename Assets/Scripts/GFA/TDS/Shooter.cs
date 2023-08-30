@@ -31,9 +31,9 @@ namespace GFA.TDS
 
         public void EquipWeapon(Weapon weapon)
         {
-            if (_activeWeaponGraphics) ClearGraphics();
+            if (_activeWeaponGraphics){ ClearGraphics();}
             _weapon = weapon;
-            if (!_weapon) CreateGraphics();
+            if (_weapon) {CreateGraphics();}
         }
 
         private void CreateGraphics()
@@ -46,7 +46,7 @@ namespace GFA.TDS
 
         private void ClearGraphics()
         {
-            if (_activeWeaponGraphics) return;
+            if (!_activeWeaponGraphics) return;
             Destroy(_activeWeaponGraphics.gameObject);
             _activeWeaponGraphics = null;
         }
@@ -66,8 +66,13 @@ namespace GFA.TDS
 
             var inst = Instantiate(projectileToInstantiate, _activeWeaponGraphics.ShootTransform.position,_activeWeaponGraphics.ShootTransform.rotation);
 
+            if (inst.TryGetComponent<ProjectileDamage>(out var projectileDamage))
+            {
+                projectileDamage.Damage = _weapon.BaseDamage;
+            }
+            
             var rand = Random.value;
-            var maxAngel = 30 - 30 * Mathf.Max(_weapon.Accuracy - _recoilValue, 0);
+            var maxAngel = 15 - 15 * Mathf.Max(_weapon.Accuracy - _recoilValue, 0);
 
             var randomAngle = Mathf.Lerp(-maxAngel, maxAngel, rand);
 
@@ -79,6 +84,8 @@ namespace GFA.TDS
 
             _lastShootTime = Time.time;
             _recoilValue += _weapon.Recoil;
+            
+            _activeWeaponGraphics.OnShoot();
         }
 
 

@@ -5,6 +5,10 @@ namespace GFA.TDS.WeaponSystem
     [CreateAssetMenu(menuName = "Weapon")]
     public class Weapon : ScriptableObject
     {
+        [SerializeField] private float _baseDamage;
+        public float BaseDamage => _baseDamage;
+
+
         [SerializeField, Min(0)] private float _fireRate = 0.5f;
         public float Firerate => _fireRate;
 
@@ -16,13 +20,12 @@ namespace GFA.TDS.WeaponSystem
 
         [SerializeField] private float _recoilFade;
         public float RecoilFade => _recoilFade;
-        
+
         [SerializeField] private GameObject _projectilePrefab;
         public GameObject ProjectilePrefab => _projectilePrefab;
 
 
         [SerializeField] private WeaponsGraphics _weaponsGraphics;
         public WeaponsGraphics WeaponsGraphics => _weaponsGraphics;
-
     }
 }

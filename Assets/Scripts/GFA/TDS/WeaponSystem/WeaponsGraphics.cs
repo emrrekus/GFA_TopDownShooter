@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace GFA.TDS.WeaponSystem
@@ -6,5 +7,10 @@ namespace GFA.TDS.WeaponSystem
     {
         [SerializeField] private Transform _shootTransform;
         public Transform ShootTransform => _shootTransform;
+        public event Action Shoot; 
+        public void OnShoot()
+        {
+            Shoot?.Invoke();
+        }
     }
 }

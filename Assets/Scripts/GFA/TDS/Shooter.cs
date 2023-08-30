@@ -18,9 +18,16 @@ namespace GFA.TDS
 
         [SerializeField] private GameObject _defualtprojectilePrefab;
 
-        [SerializeField] private Transform _shootTransform;
+   
 
         private WeaponsGraphics _activeWeaponGraphics;
+
+        [SerializeField] private Transform _weaponContainer;
+
+        private void Start()
+        {
+            if (_weapon) CreateGraphics();
+        }
 
         public void EquipWeapon(Weapon weapon)
         {
@@ -32,8 +39,9 @@ namespace GFA.TDS
         private void CreateGraphics()
         {
             if (!_weapon) return;
-            var instance = Instantiate(_weapon.WeaponsGraphics, transform);
-
+            var instance = Instantiate(_weapon.WeaponsGraphics, _weaponContainer);
+            instance.transform.localPosition = Vector3.zero;
+            _activeWeaponGraphics = instance;
         }
 
         private void ClearGraphics()
@@ -56,7 +64,7 @@ namespace GFA.TDS
                 projectileToInstantiate = _weapon.ProjectilePrefab;
             }
 
-            var inst = Instantiate(projectileToInstantiate, _shootTransform.position, _shootTransform.rotation);
+            var inst = Instantiate(projectileToInstantiate, _activeWeaponGraphics.ShootTransform.position,_activeWeaponGraphics.ShootTransform.rotation);
 
             var rand = Random.value;
             var maxAngel = 30 - 30 * Mathf.Max(_weapon.Accuracy - _recoilValue, 0);

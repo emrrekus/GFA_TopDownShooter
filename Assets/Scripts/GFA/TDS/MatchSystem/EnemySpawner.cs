@@ -14,6 +14,8 @@ namespace GFA.TDS.MatchSystem
 
         [SerializeField]
         private MatchInstance _matchInstance;
+
+        [SerializeField] private EnemySpawnData _enemySpawnData;
         private void Awake()
         {
             _camera = Camera.main;

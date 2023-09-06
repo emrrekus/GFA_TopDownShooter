@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace GFA.TDS.MatchSystem
@@ -11,6 +12,10 @@ namespace GFA.TDS.MatchSystem
       {
           Time += time;
       }
-      
+
+      public void Reset()
+      {
+          Time = 0;
+      }
     }
 }

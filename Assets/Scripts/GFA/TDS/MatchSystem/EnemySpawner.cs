@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
+using Random = System.Random;
 
 namespace GFA.TDS.MatchSystem
 {
@@ -31,11 +33,22 @@ namespace GFA.TDS.MatchSystem
             return vector * sign * _offset;
         }
 
+        private GameObject GetSpawnObject()
+        {
+            var time = _matchInstance.Time;
+            if (_enemySpawnData.TryGetEntryByTime(time, out SpawnEntry entry))
+            {
+                return entry.Prefabs[UnityEngine.Random.Range(0, entry.Prefabs.Length)];
+            }
+
+            return null;
+        }
+        
         private IEnumerator CreateEnemy()
         {
             while (true)
             {
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.5f);
                 var viewportPoint = Vector3.zero;
 
                 var offset = Vector3.zero;
@@ -61,7 +74,7 @@ namespace GFA.TDS.MatchSystem
                 if (_plane.Raycast(ray, out float enter))
                 {
                     var worldPosition = ray.GetPoint(enter) + offset;
-                    var inst = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+                    var inst = Instantiate(GetSpawnObject(), worldPosition,quaternion.identity);
                     inst.transform.position = worldPosition;
                 }
             }

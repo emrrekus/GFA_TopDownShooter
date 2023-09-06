@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entries:
   - _duration: 300
-    _spawnCount: 1000
     _prefabs:
     - {fileID: 7893622319258147500, guid: cb62900fa0e3add4b9b2d2495330a4da, type: 3}
-  - _duration: 300
     _spawnCount: 1000
+  - _duration: 300
     _prefabs:
     - {fileID: 7099244112796504496, guid: 50ecc1d5df94a3045b7d457e7423e045, type: 3}
     - {fileID: 5191506661663669743, guid: 57ceb32d129e1aa478046387219619ca, type: 3}
+    _spawnCount: 1000

@@ -152,7 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dee01478d3efb2e468001a4a9a922058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 2
+  _offset: 5
+  _spawnRate: 1
   _matchInstance: {fileID: 11400000, guid: 00c0130e6d628804c9628f0e4fcf10bd, type: 2}
   _enemySpawnData: {fileID: 11400000, guid: da97e876859da1d43bb831459ec555bd, type: 2}
 --- !u!4 &37112656

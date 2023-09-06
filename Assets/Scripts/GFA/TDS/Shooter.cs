@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using GFA.TDS.WeaponSystem;
 using UnityEngine;
+using UnityEngine.Pool;
 using Random = UnityEngine.Random;
 
 namespace GFA.TDS
@@ -18,11 +19,47 @@ namespace GFA.TDS
 
         [SerializeField] private GameObject _defualtprojectilePrefab;
 
-   
 
         private WeaponsGraphics _activeWeaponGraphics;
 
         [SerializeField] private Transform _weaponContainer;
+
+        private IObjectPool<GameObject> _projectilePool;
+
+
+        private void Awake()
+        {
+            _projectilePool = new ObjectPool<GameObject>(CreatePoolProjectTile, OnGetPoolProjectTile,
+                OnReleasePoolObject,OnDestroyFromPool,true,50);
+        }
+
+        private void OnDestroyFromPool(GameObject obj)
+        {
+            Destroy(obj);
+        }
+
+        private void OnReleasePoolObject(GameObject obj)
+        {
+            obj.SetActive(false);
+        }
+
+        private void OnGetPoolProjectTile(GameObject obj)
+        {
+            obj.SetActive(true);
+        }
+
+        private GameObject CreatePoolProjectTile()
+        {
+            var projectileToInstantiate = _defualtprojectilePrefab;
+            if (_weapon.ProjectilePrefab)
+            {
+                projectileToInstantiate = _weapon.ProjectilePrefab;
+            }
+
+            var inst = Instantiate(projectileToInstantiate, _activeWeaponGraphics.ShootTransform.position,
+                _activeWeaponGraphics.ShootTransform.rotation);
+            return inst;
+        }
 
         private void Start()
         {
@@ -31,9 +68,16 @@ namespace GFA.TDS
 
         public void EquipWeapon(Weapon weapon)
         {
-            if (_activeWeaponGraphics){ ClearGraphics();}
+            if (_activeWeaponGraphics)
+            {
+                ClearGraphics();
+            }
+
             _weapon = weapon;
-            if (_weapon) {CreateGraphics();}
+            if (_weapon)
+            {
+                CreateGraphics();
+            }
         }
 
         private void CreateGraphics()
@@ -58,19 +102,13 @@ namespace GFA.TDS
             ;
             if (!CanShoot) return;
 
-            var projectileToInstantiate = _defualtprojectilePrefab;
-            if (_weapon.ProjectilePrefab)
-            {
-                projectileToInstantiate = _weapon.ProjectilePrefab;
-            }
-
-            var inst = Instantiate(projectileToInstantiate, _activeWeaponGraphics.ShootTransform.position,_activeWeaponGraphics.ShootTransform.rotation);
+            var inst=_projectilePool.Get();
 
             if (inst.TryGetComponent<ProjectileDamage>(out var projectileDamage))
             {
                 projectileDamage.Damage = _weapon.BaseDamage;
             }
-            
+
             var rand = Random.value;
             var maxAngel = 15 - 15 * Mathf.Max(_weapon.Accuracy - _recoilValue, 0);
 
@@ -84,7 +122,7 @@ namespace GFA.TDS
 
             _lastShootTime = Time.time;
             _recoilValue += _weapon.Recoil;
-            
+
             _activeWeaponGraphics.OnShoot();
         }
 

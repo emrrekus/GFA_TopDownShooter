@@ -20,7 +20,8 @@ namespace GFA.TDS.MatchSystem
         [SerializeField] private EnemySpawnData _enemySpawnData;
 
         private GameObject[] _pooledObjects;
-        
+
+        private int _currentSpawnedObjectIndex;
         private void Awake()
         {
             _camera = Camera.main;
@@ -29,7 +30,27 @@ namespace GFA.TDS.MatchSystem
 
         private void CreatePooledObjects()
         {
-           
+            int totalSpawnCount = 0;
+
+            foreach (var entry in _enemySpawnData.Entries)
+            {
+                totalSpawnCount += entry.SpawnCount;
+            }
+
+            _pooledObjects = new GameObject[totalSpawnCount];
+
+            int currentSpawnedIndex = 0;
+            foreach (var entry in _enemySpawnData.Entries)
+            {
+                for (int i = 0; i < entry.SpawnCount; i++)
+                {
+                    var objSpawn = entry.Prefabs[UnityEngine.Random.Range(0, entry.Prefabs.Length)];
+                    var inst = Instantiate(objSpawn, Vector3.zero, quaternion.identity);
+                    inst.SetActive(false);
+                    _pooledObjects[currentSpawnedIndex] = inst;
+                    currentSpawnedIndex++;
+                }
+            }
         }
 
         private void Start()
@@ -50,24 +71,25 @@ namespace GFA.TDS.MatchSystem
                 yield return new WaitForSeconds(0.5f);
                 if (!_enemySpawnData.TryGetEntryByTime(_matchInstance.Time, out SpawnEntry entry)) continue;
                 var spawnPerCall = ((float)entry.SpawnCount / entry.Duration) * _spawnRate;
-              
 
-                    for (int i = 0; i < spawnPerCall; i++)
+
+                for (int i = 0; i < spawnPerCall; i++)
+                {
+                    var viewportPoint = GetViewportPoint(out var offset);
+
+                    var ray = _camera.ViewportPointToRay(viewportPoint);
+
+                    ;
+                    if (_plane.Raycast(ray, out float enter))
                     {
-                        var viewportPoint = GetViewportPoint(out var offset);
-
-                        var ray = _camera.ViewportPointToRay(viewportPoint);
-
-                        ;
-                        if (_plane.Raycast(ray, out float enter))
-                        {
-                            var objSpawn = entry.Prefabs[UnityEngine.Random.Range(0, entry.Prefabs.Length)];
-                            var worldPosition = ray.GetPoint(enter) + offset;
-                            var inst = Instantiate(objSpawn, worldPosition, quaternion.identity);
-                            inst.transform.position = worldPosition;
-                        }
+                       
+                        var worldPosition = ray.GetPoint(enter) + offset;
+                        var inst = _pooledObjects[_currentSpawnedObjectIndex];
+                        inst.transform.position = worldPosition;
+                        inst.SetActive(true);
+                        _currentSpawnedObjectIndex++;
                     }
-                
+                }
             }
         }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using GFA.TDS.Movement;
 using GFA.TDS.WeaponSystem;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -24,13 +25,13 @@ namespace GFA.TDS
 
         [SerializeField] private Transform _weaponContainer;
 
-        private IObjectPool<GameObject> _projectilePool;
+        private static IObjectPool<GameObject> _projectilePool;
 
 
         private void Awake()
         {
             _projectilePool = new ObjectPool<GameObject>(CreatePoolProjectTile, OnGetPoolProjectTile,
-                OnReleasePoolObject,OnDestroyFromPool,true,50);
+                OnReleasePoolObject, OnDestroyFromPool);
         }
 
         private void OnDestroyFromPool(GameObject obj)
@@ -40,12 +41,28 @@ namespace GFA.TDS
 
         private void OnReleasePoolObject(GameObject obj)
         {
-            obj.SetActive(false);
+            if (obj.TryGetComponent<ProjectTileMovement>(out var movement))
+            {
+                movement.enabled = false;
+                movement.ResetSpawnTime();
+            }
         }
 
         private void OnGetPoolProjectTile(GameObject obj)
         {
             obj.SetActive(true);
+            if (obj.TryGetComponent<ProjectTileMovement>(out var movement))
+            {
+                movement.ResetSpawnTime();
+            }
+        }
+
+        private IEnumerator ClearTrailRenderedDelayed(TrailRenderer trail)
+        {
+            trail.emitting = false;
+            yield return new WaitForEndOfFrame();
+            trail.Clear();
+            trail.emitting = true;
         }
 
         private GameObject CreatePoolProjectTile()
@@ -58,6 +75,13 @@ namespace GFA.TDS
 
             var inst = Instantiate(projectileToInstantiate, _activeWeaponGraphics.ShootTransform.position,
                 _activeWeaponGraphics.ShootTransform.rotation);
+
+
+            if (inst.TryGetComponent<ProjectTileMovement>(out var projectTileMovement))
+            {
+                projectTileMovement.DestroyRequested += () => { _projectilePool.Release(inst); };
+            }
+
             return inst;
         }
 
@@ -99,10 +123,19 @@ namespace GFA.TDS
         public void Shoot()
         {
             if (!_weapon) return;
-            ;
             if (!CanShoot) return;
 
-            var inst=_projectilePool.Get();
+            var inst = _projectilePool.Get();
+            inst.transform.position = _activeWeaponGraphics.ShootTransform.position;
+            inst.transform.rotation = _activeWeaponGraphics.ShootTransform.rotation;
+
+            var trail = inst.GetComponentInChildren<TrailRenderer>();
+            if (trail)
+            {
+                trail.Clear();
+                // StartCoroutine(ClearTrailRenderedDelayed(trail));
+            }
+
 
             if (inst.TryGetComponent<ProjectileDamage>(out var projectileDamage))
             {

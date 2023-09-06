@@ -58,6 +58,7 @@ namespace GFA.TDS.Movement
             _spawnTime = Time.time;
         }
 
+        
         public event Action<RaycastHit> Impacted;
         public event Action DestroyRequested;
 

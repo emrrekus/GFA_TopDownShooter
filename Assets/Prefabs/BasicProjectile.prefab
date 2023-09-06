@@ -184,11 +184,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 150
   _movementPlane: {x: 1, y: 1, z: 1}
-  _shouldDestroyOnCollision: 0
+  _shouldDestroyOnCollision: 1
   _shouldDisableOnCollision: 0
-  _shouldBounce: 1
-  _pushPower: 0.05
-  _lifetime: 0
+  _shouldBounce: 0
+  _pushPower: 0.01
+  _lifetime: 5
 --- !u!114 &4920261637433140275
 MonoBehaviour:
   m_ObjectHideFlags: 0

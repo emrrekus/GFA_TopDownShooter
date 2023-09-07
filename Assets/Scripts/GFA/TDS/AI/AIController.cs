@@ -1,18 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class AIController : MonoBehaviour
+namespace GFA.TDS.AI
 {
-    // Start is called before the first frame update
-    void Start()
+    public class AIController : MonoBehaviour
     {
-        
-    }
+        [SerializeField]
+        private AIBehaviour _aiBehaviour;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public AIBehaviour AIBehaviour
+        {
+            get => _aiBehaviour;
+            set
+            {
+                if (_aiBehaviour)
+                {
+                    _aiBehaviour.End(this);
+                }
+                _aiBehaviour = value;
+
+                if (_aiBehaviour)
+                {
+                    _aiBehaviour.Begin(this);
+                }
+                    
+            }
+        }
+
+        private void Awake()
+        {
+            if(_aiBehaviour) _aiBehaviour.Begin(this);
+        }
+
+        private void Update()
+        {
+            if (AIBehaviour)
+            {
+                AIBehaviour.Update(this);
+            }
+        }
     }
 }

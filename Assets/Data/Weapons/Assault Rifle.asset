@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Assault Rifle
   m_EditorClassIdentifier: 
   _baseDamage: 0.2
-  _fireRate: 0.15
+  _fireRate: 0.1
   _accuracy: 0.9
   _recoil: 0.1
   _recoilFade: 0.2

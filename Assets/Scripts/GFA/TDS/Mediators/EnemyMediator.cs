@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace GFA.TDS.Mediators
 {
-    public class EnemyMediator : MonoBehaviour
+    public class EnemyMediator : MonoBehaviour,IDamageable
     {
         [SerializeField]
         private float _health;

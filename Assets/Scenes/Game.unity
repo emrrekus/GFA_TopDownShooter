@@ -184,7 +184,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -433,10 +433,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dee01478d3efb2e468001a4a9a922058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 3
-  _spawnRate: 1
   _matchInstance: {fileID: 11400000, guid: 00c0130e6d628804c9628f0e4fcf10bd, type: 2}
   _enemySpawnData: {fileID: 11400000, guid: da97e876859da1d43bb831459ec555bd, type: 2}
+  _offset: 3
+  _spawnRate: 1
 --- !u!4 &877266156
 Transform:
   m_ObjectHideFlags: 0
@@ -849,6 +849,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 18b370e85ec4fd042b0c3bf6c981c2d5,
         type: 2}
+    - target: {fileID: 3015254197238560094, guid: 92fbbf5d71ac4d94ca0be79934c58ebc,
+        type: 3}
+      propertyPath: _defaultProjectilePrefab
+      value: 
+      objectReference: {fileID: 8399190721041072383, guid: 2a50b587dbf4e8646ac8292f1d621c8d,
+        type: 3}
     - target: {fileID: 3114668134077262873, guid: 92fbbf5d71ac4d94ca0be79934c58ebc,
         type: 3}
       propertyPath: m_Name

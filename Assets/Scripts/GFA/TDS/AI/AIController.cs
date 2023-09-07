@@ -1,4 +1,5 @@
 using System;
+using GFA.TDS.AI.States;
 using UnityEngine;
 
 namespace GFA.TDS.AI
@@ -21,12 +22,14 @@ namespace GFA.TDS.AI
 
                 if (_aiBehaviour)
                 {
+                    _aiState = _aiBehaviour.CreateState();
                     _aiBehaviour.Begin(this);
                 }
                     
             }
         }
 
+        private AIState _aiState;
         private void Awake()
         {
             if(_aiBehaviour) _aiBehaviour.Begin(this);
@@ -36,8 +39,24 @@ namespace GFA.TDS.AI
         {
             if (AIBehaviour)
             {
-                AIBehaviour.Update(this);
+                AIBehaviour.OnUpdate(this);
             }
         }
+
+        public bool TryGetState<T>(out T state) where T : AIState
+        {
+            
+            if (_aiState is T casted)
+            {
+                state = casted;
+                return true;
+            }
+            else
+            {
+                state = null;
+                return false;
+            }
+        }
+        
     }
 }

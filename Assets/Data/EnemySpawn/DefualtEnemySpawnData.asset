@@ -17,3 +17,7 @@ MonoBehaviour:
     _prefabs:
     - {fileID: 7893622319258147500, guid: cb62900fa0e3add4b9b2d2495330a4da, type: 3}
     _spawnCount: 10
+  - _duration: 50
+    _prefabs:
+    - {fileID: 7893622319258147500, guid: cb62900fa0e3add4b9b2d2495330a4da, type: 3}
+    _spawnCount: 50

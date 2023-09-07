@@ -1,6 +1,7 @@
 using GFA.TDS.AI.States;
 using GFA.TDS.MatchSystem;
 using GFA.TDS.Movement;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace GFA.TDS.AI.Behaviours
@@ -10,7 +11,7 @@ namespace GFA.TDS.AI.Behaviours
     {
         [SerializeField] private float _acceptanceRadius;
 
-        [SerializeField] private MatchInstance _matchInstance;
+        [SerializeField] [CanBeNull] private MatchInstance _matchInstance;
 
         public override void Begin(AIController controller)
         {

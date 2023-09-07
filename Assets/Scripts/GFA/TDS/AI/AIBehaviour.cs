@@ -17,7 +17,7 @@ namespace GFA.TDS.AI
 
         public virtual AIState CreateState()
         {
-            return null;
+            return new NullAIState();
         }
 
     }

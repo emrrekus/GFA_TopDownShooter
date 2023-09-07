@@ -7,7 +7,6 @@ namespace GFA.TDS.Movement
 {
     [RequireComponent(typeof(CharacterController))]
     public class CharacterMovement : MonoBehaviour
-
     {
         private CharacterController _characterController;
 

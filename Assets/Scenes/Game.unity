@@ -860,6 +860,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8666472633662500183, guid: 92fbbf5d71ac4d94ca0be79934c58ebc,
+        type: 3}
+      propertyPath: _health
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8666472633662500183, guid: 92fbbf5d71ac4d94ca0be79934c58ebc,
+        type: 3}
+      propertyPath: _dodgePower
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

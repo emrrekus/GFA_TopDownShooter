@@ -9,11 +9,11 @@ using UnityEngine.UIElements;
 
 namespace GFA.TDS.Mediators
 {
-    public class PlayerMediator : MonoBehaviour
+    public class PlayerMediator : MonoBehaviour, IDamageable
     {
         private CharacterMovement _characterMovement;
         private Shooter _shooter;
-        
+
         private GameInput _gameInput;
 
         [SerializeField] private float _dodgePower;
@@ -21,6 +21,8 @@ namespace GFA.TDS.Mediators
         private Plane _plane = new(Vector3.up, Vector3.zero);
 
         private Camera _camera;
+
+        [SerializeField] private float _health;
 
         private void Awake()
         {
@@ -34,24 +36,21 @@ namespace GFA.TDS.Mediators
         {
             _gameInput.Enable();
             _gameInput.Player.Dodge.performed += OnDodgeRequested;
-           
         }
 
         private void OnDisable()
         {
             _gameInput.Disable();
             _gameInput.Player.Dodge.performed -= OnDodgeRequested;
-            
         }
 
-       
 
         private void OnDodgeRequested(InputAction.CallbackContext obj)
         {
             _characterMovement.ExternalForce += _characterMovement.Velocity.normalized * _dodgePower;
         }
 
-       
+
         private void Update()
         {
             HandleMovement();
@@ -92,6 +91,11 @@ namespace GFA.TDS.Mediators
                     _characterMovement.Rotation = angle;
                 }
             }
+        }
+
+        public void ApplyDamage(float damage, GameObject causer = null)
+        {
+            _health -= damage;
         }
     }
 }

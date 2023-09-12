@@ -19,6 +19,7 @@ namespace GFA.TDS.AI.Behaviours
             {
                 state.CharacterMovement = controller.GetComponent<CharacterMovement>();
                 state.Attacker = controller.GetComponent<EnemyAttacker>();
+                state.PlayerDamageable = _matchInstance.Player.GetComponent<IDamageable>();
             }
         }
 
@@ -31,15 +32,18 @@ namespace GFA.TDS.AI.Behaviours
 
 
             var dist = Vector3.Distance(player.transform.position, controller.transform.position);
-            if (dist < _acceptanceRadius)
-            {
-                movement.MovementInput = Vector3.zero;
-            }
-            else
+           
+            if (dist<_acceptanceRadius || !state.Attacker.IsCurrentlyAttacking)
             {
                 var dir = (player.transform.position - controller.transform.position).normalized;
                 movement.MovementInput = new Vector2(dir.x, dir.z);
             }
+
+            if (dist < state.Attacker.Range)
+            {
+                state.Attacker.Attack(state.PlayerDamageable);
+            }
+          
         }
 
         public override void End(AIController controller)

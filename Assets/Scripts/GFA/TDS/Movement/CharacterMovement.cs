@@ -27,11 +27,10 @@ namespace GFA.TDS.Movement
         private void Update()
         {
             var movement = new Vector3(MovementInput.x, 0, MovementInput.y);
-
             transform.eulerAngles = new Vector3(0, Rotation);
             _characterController.SimpleMove(movement * _movementSpeed + ExternalForce);
-
             ExternalForce = Vector3.Lerp(ExternalForce, Vector3.zero, 4 * Time.deltaTime);
+            MovementInput = Vector3.zero;
         }
     }
 }

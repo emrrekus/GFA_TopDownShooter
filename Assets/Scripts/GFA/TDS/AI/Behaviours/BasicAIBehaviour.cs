@@ -18,6 +18,7 @@ namespace GFA.TDS.AI.Behaviours
             if (controller.TryGetState<BasicAIState>(out var state))
             {
                 state.CharacterMovement = controller.GetComponent<CharacterMovement>();
+                state.Attacker = controller.GetComponent<EnemyAttacker>();
             }
         }
 

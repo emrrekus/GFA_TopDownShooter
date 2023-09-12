@@ -7,6 +7,7 @@ namespace GFA.TDS
 {
     public interface IDamageable
     {
+       
         void ApplyDamage(float damage, GameObject causer = null);
     } 
 }

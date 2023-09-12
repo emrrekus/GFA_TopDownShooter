@@ -1,52 +1,56 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using GFA.TDS;
 using UnityEngine;
 
-public class EnemyAttacker : MonoBehaviour
+namespace GFA.TDS.MatchSystem
 {
-    [SerializeField] private float _damage;
-
-    [SerializeField] private float _range;
-
-    public float Range => _range;
-
-
-    [SerializeField] private float _attackRate;
-
-    private float _lastAttack;
-    public bool CanAttack => Time.time > _lastAttack + _attackRate;
-
-    public bool IsCurrentlyAttacking { get; private set; }
-
-    public event Action<IDamageable> Attacked;
-
-    public void Attack(IDamageable target)
+    public class EnemyAttacker : MonoBehaviour,IDamageExecutor
     {
-        if (!CanAttack) return;
-        _lastAttack = Time.time;
-        Attacked?.Invoke(target);
-        StartCoroutine(ApplyAttackDelayed(target));
-    }
+        [SerializeField] private float _damage;
 
-    private IEnumerator ApplyAttackDelayed(IDamageable target)
-    {
-        IsCurrentlyAttacking = true;
-        yield return new WaitForSeconds(.5f);
-        IsCurrentlyAttacking = false;
-        if (target is MonoBehaviour mb)
+        [SerializeField] private float _range;
+
+        public float Range => _range;
+
+
+        [SerializeField] private float _attackRate;
+
+        private float _lastAttack;
+        public bool CanAttack => Time.time > _lastAttack + _attackRate;
+
+        public bool IsCurrentlyAttacking { get; private set; }
+
+        public event Action<IDamageable> Attacked;
+
+        private IDamageable _currentTarget;
+
+        public void Attack(IDamageable target)
         {
-            if (Vector3.Distance(mb.transform.position, transform.position) < _range)
-            {
-                target.ApplyDamage(_damage);
-            }
-            else
-            {
-                target.ApplyDamage(_damage);
-            }
+            if (!CanAttack) return;
+            _lastAttack = Time.time;
+            Attacked?.Invoke(target);
+       
         }
 
-        target.ApplyDamage(_damage);
+        public void ExecuteDamage()
+        {
+        
+            if(_currentTarget == null) return;
+            
+            if (_currentTarget is MonoBehaviour mb)
+            {
+                if (Vector3.Distance(mb.transform.position, transform.position) < _range)
+                {
+                    _currentTarget.ApplyDamage(_damage);
+                }
+                else
+                {
+                    _currentTarget.ApplyDamage(_damage);
+                }
+            }
+            IsCurrentlyAttacking = false; 
+        
+        }
+
+  
     }
 }

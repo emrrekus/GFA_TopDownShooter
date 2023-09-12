@@ -38,7 +38,8 @@ namespace GFA.TDS.AI.Behaviours
                 movement.MovementInput = new Vector2(dir.x, dir.z);
             }
 
-            controller.transform.rotation = Quaternion.LookRotation(dir);
+            var rotation = Quaternion.LookRotation(dir);
+            movement.Rotation = rotation.eulerAngles.y;
 
             if (dist < state.Attacker.Range)
             {

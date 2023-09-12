@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using GFA.TDS;
@@ -19,10 +20,13 @@ public class EnemyAttacker : MonoBehaviour
 
     public bool IsCurrentlyAttacking { get; private set; }
 
+    public event Action<IDamageable> Attacked;
+
     public void Attack(IDamageable target)
     {
         if (!CanAttack) return;
         _lastAttack = Time.time;
+        Attacked?.Invoke(target);
         StartCoroutine(ApplyAttackDelayed(target));
     }
 

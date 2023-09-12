@@ -32,18 +32,18 @@ namespace GFA.TDS.AI.Behaviours
 
 
             var dist = Vector3.Distance(player.transform.position, controller.transform.position);
-           
-            if (dist<_acceptanceRadius || !state.Attacker.IsCurrentlyAttacking)
+            var dir = (player.transform.position - controller.transform.position).normalized;
+            if (dist < _acceptanceRadius || !state.Attacker.IsCurrentlyAttacking)
             {
-                var dir = (player.transform.position - controller.transform.position).normalized;
                 movement.MovementInput = new Vector2(dir.x, dir.z);
             }
+
+            controller.transform.rotation = Quaternion.LookRotation(dir);
 
             if (dist < state.Attacker.Range)
             {
                 state.Attacker.Attack(state.PlayerDamageable);
             }
-          
         }
 
         public override void End(AIController controller)

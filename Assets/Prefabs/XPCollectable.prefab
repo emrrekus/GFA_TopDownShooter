@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6072030016395380808}
   - component: {fileID: 7853724932082873545}
   - component: {fileID: 1873723097860975049}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3165873879249956325}
   - component: {fileID: 3813092056794571740}
-  m_Layer: 0
+  - component: {fileID: 3000053197829715220}
+  m_Layer: 7
   m_Name: XPCollectable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,3 +129,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b983b6a3173423e448910351ff11a31c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &3000053197829715220
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5130377203573648258}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.19853717, y: 0.20150426, z: 0.21187216}
+  m_Center: {x: 0.0030222237, y: -0.0016312152, z: -0.0016331524}

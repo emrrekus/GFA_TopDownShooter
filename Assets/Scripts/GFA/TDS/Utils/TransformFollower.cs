@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace GFA.TDS
+namespace GFA.TDS.Utils
 {
     public class TransformFollower : MonoBehaviour
     {

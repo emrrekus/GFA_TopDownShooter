@@ -13,11 +13,7 @@ MonoBehaviour:
   m_Name: DefualtEnemySpawnData
   m_EditorClassIdentifier: 
   _entries:
-  - _duration: 10
-    _prefabs:
-    - {fileID: 569720909467853498, guid: b4bd33263f62cd84cbb2872c3f0d4e35, type: 3}
-    _spawnCount: 10
   - _duration: 50
     _prefabs:
     - {fileID: 569720909467853498, guid: b4bd33263f62cd84cbb2872c3f0d4e35, type: 3}
-    _spawnCount: 50
+    _spawnCount: 100

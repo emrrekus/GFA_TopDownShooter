@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using GFA.TDS.Input;
 using GFA.TDS.Movement;
+using GFA.TPS;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -11,6 +12,10 @@ namespace GFA.TDS.Mediators
 {
     public class PlayerMediator : MonoBehaviour, IDamageable
     {
+        [SerializeField]
+        private Attributes _attributes;
+        public Attributes Attributes => _attributes;
+        
         private CharacterMovement _characterMovement;
         private Shooter _shooter;
         private XPColletableAttractor _xpColletableAttractor;
@@ -41,7 +46,6 @@ namespace GFA.TDS.Mediators
             _xpColletableAttractor = GetComponent<XPColletableAttractor>();
             _gameInput = new GameInput();
             _camera = Camera.main;
-            
         }
 
         private void OnEnable()
@@ -67,12 +71,11 @@ namespace GFA.TDS.Mediators
         private void AddXP(float value)
         {
             _xp += value;
-            if (_xp > MaxXP)
+            if (_xp >= MaxXP)
             {
                 _level++;
                 _xp = 0;
                 LevelledUp?.Invoke(_level);
-               
             }
         }
 
@@ -84,9 +87,17 @@ namespace GFA.TDS.Mediators
 
         private void Update()
         {
+            HandleAttributes();
             HandleMovement();
 
             HandleShooter();
+        }
+
+        private void HandleAttributes()
+        {
+            _characterMovement.MovementSpeed = Attributes.MovementSpeed;
+            _shooter.AttackSpeedMultipler = Attributes.AttackSpeed;
+            _shooter.BaseDamage = Attributes.Damage;
         }
 
         private void HandleShooter()

@@ -13,10 +13,18 @@ namespace GFA.TDS.Mediators
     {
         private CharacterMovement _characterMovement;
         private Shooter _shooter;
+        private XPColletableAttractor _xpColletableAttractor;
 
         private GameInput _gameInput;
 
         [SerializeField] private float _dodgePower;
+
+        private float _xp;
+
+        private int _level;
+        public int Level => _level;
+
+        public float MaxXP => (_level + 1) * 5;
 
         private Plane _plane = new(Vector3.up, Vector3.zero);
 
@@ -24,26 +32,49 @@ namespace GFA.TDS.Mediators
 
         [SerializeField] private float _health;
 
+        public event Action<int> LevelledUp;
+
         private void Awake()
         {
             _characterMovement = GetComponent<CharacterMovement>();
             _shooter = GetComponent<Shooter>();
+            _xpColletableAttractor = GetComponent<XPColletableAttractor>();
             _gameInput = new GameInput();
             _camera = Camera.main;
+            
         }
 
         private void OnEnable()
         {
             _gameInput.Enable();
             _gameInput.Player.Dodge.performed += OnDodgeRequested;
+            _xpColletableAttractor.XPCollected += OnAttractorXPCollected;
         }
 
         private void OnDisable()
         {
             _gameInput.Disable();
             _gameInput.Player.Dodge.performed -= OnDodgeRequested;
+            _xpColletableAttractor.XPCollected -= OnAttractorXPCollected;
         }
 
+        private void OnAttractorXPCollected(float xp)
+        {
+            AddXP(xp);
+        }
+
+
+        private void AddXP(float value)
+        {
+            _xp += value;
+            if (_xp > MaxXP)
+            {
+                _level++;
+                _xp = 0;
+                LevelledUp?.Invoke(_level);
+               
+            }
+        }
 
         private void OnDodgeRequested(InputAction.CallbackContext obj)
         {

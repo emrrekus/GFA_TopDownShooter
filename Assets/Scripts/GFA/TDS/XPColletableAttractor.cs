@@ -14,6 +14,8 @@ namespace GFA.TDS
 
         [SerializeField] private LayerMask _layerMask;
 
+        public event Action<float> XPCollected;
+
         private void Start()
         {
             StartCoroutine(Execute());
@@ -37,6 +39,8 @@ namespace GFA.TDS
                     follower.Target = transform;
                     follower.ReachedDestination += () =>
                     {
+                        var collectable = follower.GetComponent<XPCollectable>();
+                        XPCollected?.Invoke(collectable.XP);
                         Destroy(follower.gameObject);
                     };
                 }

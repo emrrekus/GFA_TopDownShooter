@@ -1,0 +1,61 @@
+using System.Collections.Generic;
+
+namespace GFA.TDS.UI
+{
+    public static class PopupChannel
+    {
+        private static List<Popup> _popups = new();
+
+        public static Popup GetPopup(string name)
+        {
+            foreach (var pop in _popups)
+            {
+                if (pop.Name == name)
+                {
+                    return pop;
+                }
+            }
+
+            return null;
+        }
+
+
+        public static bool TryGetPopup(string name, out Popup popup)
+        {
+            foreach (var pop in _popups)
+            {
+                if (pop.Name == name)
+                {
+                    popup = pop;
+                    return true;
+                }
+            }
+
+            popup = null;
+            return false;
+        }
+
+        public static bool TryGetPopup<T>(out T popup) where T : Popup
+        {
+            foreach (var p in _popups)
+            {
+                if (p is T casted)
+                {
+                    popup = casted;
+                    return true;
+                }
+            }
+
+            popup = null;
+            return false;
+        }
+
+        public static void RequestPopup<T>() where T: Popup
+        {
+            if (TryGetPopup<T>(out T popup))
+            {
+                popup.Open();
+            }
+        }
+    }
+}

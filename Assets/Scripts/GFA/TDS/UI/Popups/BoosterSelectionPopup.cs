@@ -19,10 +19,7 @@ namespace GFA.TDS.UI.Popups
 
         protected override void OnOpened()
         {
-            base.OnOpened();
-
-            var boosters = new Booster[3];
-
+           
             for (int i = 0; i < 3; i++)
             {
                 var randomBooster = _boosterList.Get(Random.Range(0, _boosterList.Lenght));

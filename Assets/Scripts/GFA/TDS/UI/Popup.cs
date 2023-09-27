@@ -12,6 +12,9 @@ namespace GFA.TDS.UI
         private GraphicRaycaster _raycaster;
         public bool IsOpen => _canvas.enabled;
 
+        [SerializeField] private string _name;
+        public string Name => _name;
+
 
         private void Awake()
         {

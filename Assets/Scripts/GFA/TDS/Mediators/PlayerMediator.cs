@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using GFA.TDS.Input;
 using GFA.TDS.Movement;
+using GFA.TDS.UI;
+using GFA.TDS.UI.Popups;
 using GFA.TPS;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -19,6 +21,7 @@ namespace GFA.TDS.Mediators
         private CharacterMovement _characterMovement;
         private Shooter _shooter;
         private XPColletableAttractor _xpColletableAttractor;
+        private BoosterContainer _boosterContainer;
 
         private GameInput _gameInput;
 
@@ -46,6 +49,7 @@ namespace GFA.TDS.Mediators
             _xpColletableAttractor = GetComponent<XPColletableAttractor>();
             _gameInput = new GameInput();
             _camera = Camera.main;
+            _boosterContainer = GetComponent<BoosterContainer>();
         }
 
         private void OnEnable()
@@ -73,12 +77,21 @@ namespace GFA.TDS.Mediators
             _xp += value;
             if (_xp >= MaxXP)
             {
-                _level++;
-                _xp = 0;
-                LevelledUp?.Invoke(_level);
+                LevelUp();
             }
         }
 
+        private void LevelUp()
+        {
+            _level++;
+            _xp = 0;
+            if(PopupChannel.TryGetPopup<BoosterSelectionPopup>(out var popup))
+            {
+                popup.TargetBoosterContainer = _boosterContainer;
+                popup.Open();
+            }
+            LevelledUp?.Invoke(_level);
+        }
         private void OnDodgeRequested(InputAction.CallbackContext obj)
         {
             _characterMovement.ExternalForce += _characterMovement.Velocity.normalized * _dodgePower;
@@ -89,7 +102,6 @@ namespace GFA.TDS.Mediators
         {
             HandleAttributes();
             HandleMovement();
-
             HandleShooter();
         }
 

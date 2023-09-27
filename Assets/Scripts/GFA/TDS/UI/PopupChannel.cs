@@ -57,5 +57,18 @@ namespace GFA.TDS.UI
                 popup.Open();
             }
         }
+
+        public static void RegisterPopup(Popup popup)
+        {
+            if (!_popups.Contains(popup))
+            {
+                _popups.Add(popup);
+            }
+        }
+
+        public static void UnregisterPopup(Popup popup)
+        {
+            _popups.Remove(popup);
+        }
     }
 }

@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _xp: 1
-  _xpDropChange: 1
+  _xpDropChange: 0.7
   _xpCollectablePrefab: {fileID: 3813092056794571740, guid: 9d126e7eec4fd68488ecdc2197c91ae1,
     type: 3}
 --- !u!1001 &5912464937245283306

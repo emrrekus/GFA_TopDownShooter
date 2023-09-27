@@ -320,6 +320,7 @@ GameObject:
   - component: {fileID: 333034285}
   - component: {fileID: 333034284}
   - component: {fileID: 333034283}
+  - component: {fileID: 333034286}
   m_Layer: 5
   m_Name: BoosterSelectionPopup
   m_TagString: Untagged
@@ -362,6 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1036788c9ed80246ab4ec55bec67ae9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _name: BoosterSelectionPopup
   _boosterList: {fileID: 11400000, guid: 096ab4702f5b5f344b3f3e38a611a98d, type: 2}
   _boosterCardPrefab: {fileID: 6913771359798291889, guid: 663e85377595b76b498830e4c880bef9,
     type: 3}
@@ -406,6 +408,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &333034286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333034281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2656279cdedf2ac429528663d7a23f77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &377139632
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,7 +1216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.18039216}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.45490196}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

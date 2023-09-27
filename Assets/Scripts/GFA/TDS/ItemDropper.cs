@@ -1,3 +1,4 @@
+using GFA.TDS.WeaponSystem;
 using UnityEngine;
 
 namespace GFA.TDS
@@ -6,12 +7,12 @@ namespace GFA.TDS
     {
         [SerializeField] private float _xp;
 
-        
-        [SerializeField,Range(0,1)] private float _xpDropChange;
-        
-        
-        [SerializeField]
-        private XPCollectable _xpCollectablePrefab;
+
+        [SerializeField, Range(0, 1)] private float _xpDropChange;
+
+
+        [SerializeField] private XPCollectable _xpCollectablePrefab;
+        [SerializeField] private WeaponDropChnce[] _weaponDropChnces;
 
         public void OnDied()
         {
@@ -20,9 +21,14 @@ namespace GFA.TDS
                 var inst = Instantiate(_xpCollectablePrefab, transform.position, Quaternion.identity);
                 inst.XP = _xp;
             }
-            
         }
-        
-     
+    }
+
+    [System.Serializable]
+    public class WeaponDropChnce
+    {
+        public float Chance;
+        public Weapon Weapon;
+
     }
 }

@@ -1,5 +1,7 @@
 using GFA.TDS.WeaponSystem;
+using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace GFA.TDS
 {
@@ -14,12 +16,22 @@ namespace GFA.TDS
         [SerializeField] private XPCollectable _xpCollectablePrefab;
         [SerializeField] private WeaponDropChnce[] _weaponDropChnces;
 
+        [SerializeField] private WeaponCollectable _weaponCollectablePrefab;
         public void OnDied()
         {
             if (_xpCollectablePrefab && Random.value < _xpDropChange)
             {
                 var inst = Instantiate(_xpCollectablePrefab, transform.position, Quaternion.identity);
                 inst.XP = _xp;
+            }
+
+            foreach (var weaponDrop in _weaponDropChnces)
+            {
+                if (Random.value < weaponDrop.Chance)
+                {
+                    var inst = Instantiate(_weaponCollectablePrefab, transform.position, quaternion.identity);
+                    inst.Weapon = weaponDrop.Weapon;
+                }
             }
         }
     }

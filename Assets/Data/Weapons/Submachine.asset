@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35fd0a12d94c4064b8e4c7420a03d2be, type: 3}
+  m_Name: Submachine
+  m_EditorClassIdentifier: 
+  _baseDamage: 0.3
+  _fireRate: 0.04
+  _accuracy: 0.76
+  _recoil: 0.05
+  _recoilFade: 0.8
+  _projectilePrefab: {fileID: 8399190721041072383, guid: 2a50b587dbf4e8646ac8292f1d621c8d,
+    type: 3}
+  _weaponsGraphics: {fileID: 677298031116528500, guid: 4b7d6d6543b1a5e4287af535b222e610,
+    type: 3}

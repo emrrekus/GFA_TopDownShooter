@@ -1,3 +1,4 @@
+using DG.Tweening;
 using GFA.TDS.WeaponSystem;
 using Unity.Mathematics;
 using UnityEngine;
@@ -17,6 +18,7 @@ namespace GFA.TDS
         [SerializeField] private WeaponDropChnce[] _weaponDropChnces;
 
         [SerializeField] private WeaponCollectable _weaponCollectablePrefab;
+
         public void OnDied()
         {
             if (_xpCollectablePrefab && Random.value < _xpDropChange)
@@ -31,6 +33,12 @@ namespace GFA.TDS
                 {
                     var inst = Instantiate(_weaponCollectablePrefab, transform.position, quaternion.identity);
                     inst.Weapon = weaponDrop.Weapon;
+                    Vector3 randomPointOnCircle = Random.insideUnitCircle;
+                    randomPointOnCircle.z = randomPointOnCircle.y;
+                    randomPointOnCircle.y = 0;
+                    randomPointOnCircle.Normalize();
+                    inst.transform.DOJump(transform.position + randomPointOnCircle * 5,1,1,.4f);
+                    break;
                 }
             }
         }
@@ -41,6 +49,5 @@ namespace GFA.TDS
     {
         public float Chance;
         public Weapon Weapon;
-
     }
 }

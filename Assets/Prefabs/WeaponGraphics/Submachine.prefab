@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2021537600096270594}
   - component: {fileID: 677298031116528500}
+  - component: {fileID: 598985407841562448}
   m_Layer: 0
   m_Name: Submachine
   m_TagString: Untagged
@@ -31,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5426067550177854993}
-  - {fileID: 3655018539297205319}
+  - {fileID: 2472237234083567667}
   - {fileID: 5839464613922284942}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -48,6 +49,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shootTransform: {fileID: 5426067550177854993}
+--- !u!114 &598985407841562448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671498353995238786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db101bff111c3f145a2ac1fc2f8b1af5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particleSystems:
+  - {fileID: 7647091337523087401}
+  - {fileID: 8234085682397525441}
 --- !u!1 &3247280491464391291
 GameObject:
   m_ObjectHideFlags: 0
@@ -9952,7 +9968,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f66453a0af18834bbc2021d96ecaa44, type: 3}
---- !u!4 &3655018539297205319 stripped
+--- !u!4 &2472237234083567667 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8f66453a0af18834bbc2021d96ecaa44,
     type: 3}

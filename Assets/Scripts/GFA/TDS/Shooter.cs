@@ -32,6 +32,8 @@ namespace GFA.TDS
 
         private static IObjectPool<GameObject> _projectilePool;
 
+        public event Action Shot;
+
         private void Awake()
         {
             _projectilePool = new ObjectPool<GameObject>(CreatePoolProjectile, OnGetPoolProjectile, OnReleasePoolObject, OnDestroyFromPool);
@@ -153,6 +155,7 @@ namespace GFA.TDS
             _recoilValue += _weapon.Recoil;
 
             _activeWeaponGraphics.OnShoot();
+            Shot?.Invoke();
         }
 
         private void Update()

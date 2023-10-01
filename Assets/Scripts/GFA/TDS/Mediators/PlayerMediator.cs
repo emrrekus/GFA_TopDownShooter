@@ -43,6 +43,7 @@ namespace GFA.TDS.Mediators
         [SerializeField] private float _health;
 
         public event Action<int> LevelledUp;
+      
 
         private void Awake()
         {
@@ -60,6 +61,7 @@ namespace GFA.TDS.Mediators
             _gameInput.Enable();
             _gameInput.Player.Dodge.performed += OnDodgeRequested;
             _xpColletableAttractor.XPCollected += OnAttractorXPCollected;
+            _shooter.Shot += OnShooterShot;
         }
 
         private void OnDisable()
@@ -67,6 +69,12 @@ namespace GFA.TDS.Mediators
             _gameInput.Disable();
             _gameInput.Player.Dodge.performed -= OnDodgeRequested;
             _xpColletableAttractor.XPCollected -= OnAttractorXPCollected;
+            _shooter.Shot -= OnShooterShot;
+        }
+
+        private void OnShooterShot()
+        {
+            _playerAnimation.PlayFireAnimation();
         }
 
         private void OnAttractorXPCollected(float xp)

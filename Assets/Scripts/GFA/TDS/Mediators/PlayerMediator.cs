@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using GFA.TDS.Animating;
 using GFA.TDS.Input;
 using GFA.TDS.Movement;
 using GFA.TDS.UI;
@@ -22,6 +23,7 @@ namespace GFA.TDS.Mediators
         private Shooter _shooter;
         private XPColletableAttractor _xpColletableAttractor;
         private BoosterContainer _boosterContainer;
+        private PlayerAnimation _playerAnimation;
 
         private GameInput _gameInput;
 
@@ -50,6 +52,7 @@ namespace GFA.TDS.Mediators
             _gameInput = new GameInput();
             _camera = Camera.main;
             _boosterContainer = GetComponent<BoosterContainer>();
+            _playerAnimation = GetComponent<PlayerAnimation>();
         }
 
         private void OnEnable()
@@ -103,6 +106,7 @@ namespace GFA.TDS.Mediators
             HandleAttributes();
             HandleMovement();
             HandleShooter();
+            _playerAnimation.Velocity = _characterMovement.Velocity;
         }
 
         private void HandleAttributes()

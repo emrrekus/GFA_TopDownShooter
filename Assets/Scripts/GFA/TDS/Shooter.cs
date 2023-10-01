@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using GFA.TDS.Movement;
+using GFA.TDS.Utils;
 using GFA.TDS.WeaponSystem;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -28,7 +29,7 @@ namespace GFA.TDS
         private WeaponsGraphics _activeWeaponGraphics;
 
         [SerializeField]
-        private Transform _weaponContainer;
+        private BoneSocketContainer _boneSocketContainer;
 
         private static IObjectPool<GameObject> _projectilePool;
 
@@ -103,8 +104,9 @@ namespace GFA.TDS
         private void CreateGraphics()
         {
             if (!_weapon) return;
-            var instance = Instantiate(_weapon.WeaponsGraphics, _weaponContainer);
+            var instance = Instantiate(_weapon.WeaponsGraphics, _boneSocketContainer.GetSocket(_weapon.BoneSocketName),true);
             instance.transform.localPosition = Vector3.zero;
+            instance.transform.localRotation = Quaternion.identity;
             _activeWeaponGraphics = instance;
         }
 

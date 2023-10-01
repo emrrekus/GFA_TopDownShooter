@@ -20,3 +20,4 @@ MonoBehaviour:
   _projectilePrefab: {fileID: 0}
   _weaponsGraphics: {fileID: 8781915695761903233, guid: a322db678af68c826987cc2463c3cf16,
     type: 3}
+  _boneSocketName: RightHandSocket_Rifle

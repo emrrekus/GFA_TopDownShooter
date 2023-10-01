@@ -20,3 +20,4 @@ MonoBehaviour:
   _projectilePrefab: {fileID: 0}
   _weaponsGraphics: {fileID: 4850772149372882946, guid: 3982c7c993cb86ecaa46aa9ea7b35b07,
     type: 3}
+  _boneSocketName: RightHandSocket_Pistol

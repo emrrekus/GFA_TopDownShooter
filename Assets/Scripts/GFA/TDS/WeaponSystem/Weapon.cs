@@ -26,6 +26,11 @@ namespace GFA.TDS.WeaponSystem
 
 
         [SerializeField] private WeaponsGraphics _weaponsGraphics;
+   
         public WeaponsGraphics WeaponsGraphics => _weaponsGraphics;
+        
+        [SerializeField]
+        private string _boneSocketName;
+        public string BoneSocketName => _boneSocketName;
     }
 }

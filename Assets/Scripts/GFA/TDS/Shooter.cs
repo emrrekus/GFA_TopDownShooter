@@ -14,6 +14,9 @@ namespace GFA.TDS
     {
          [SerializeField]
         private Weapon _weapon;
+
+        public Weapon Weapon => _weapon;
+        
         
         private float _recoilValue = 0f;
 
@@ -34,6 +37,7 @@ namespace GFA.TDS
         private static IObjectPool<GameObject> _projectilePool;
 
         public event Action Shot;
+        public event Action<Weapon> WeaponChanged;
 
         private void Awake()
         {
@@ -99,6 +103,8 @@ namespace GFA.TDS
             {
                 CreateGraphics();
             }
+            
+            WeaponChanged?.Invoke(_weapon);
         }
 
         private void CreateGraphics()

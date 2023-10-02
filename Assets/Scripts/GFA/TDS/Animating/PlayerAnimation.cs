@@ -29,5 +29,10 @@ namespace GFA.TDS.Animating
         {
             _animator.SetTrigger(Fire);
         }
+
+        public void SetAnimationController(RuntimeAnimatorController animatorController)
+        {
+            _animator.runtimeAnimatorController = animatorController;
+        }
     }
 }

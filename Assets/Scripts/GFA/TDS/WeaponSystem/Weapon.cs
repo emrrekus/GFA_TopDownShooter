@@ -1,3 +1,4 @@
+using UnityEditor.Animations;
 using UnityEngine;
 
 namespace GFA.TDS.WeaponSystem
@@ -32,5 +33,11 @@ namespace GFA.TDS.WeaponSystem
         [SerializeField]
         private string _boneSocketName;
         public string BoneSocketName => _boneSocketName;
+
+        [SerializeField]
+        private RuntimeAnimatorController _animatorController;
+
+        public RuntimeAnimatorController Controller => _animatorController;
+
     }
 }

@@ -21,3 +21,4 @@ MonoBehaviour:
   _weaponsGraphics: {fileID: 4850772149372882946, guid: 3982c7c993cb86ecaa46aa9ea7b35b07,
     type: 3}
   _boneSocketName: RightHandSocket_Pistol
+  _animatorController: {fileID: 9100000, guid: ffb3f784d3cf81e4bbaf3559791e0101, type: 2}

@@ -6,6 +6,7 @@ using GFA.TDS.Input;
 using GFA.TDS.Movement;
 using GFA.TDS.UI;
 using GFA.TDS.UI.Popups;
+using GFA.TDS.WeaponSystem;
 using GFA.TPS;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -62,7 +63,14 @@ namespace GFA.TDS.Mediators
             _gameInput.Player.Dodge.performed += OnDodgeRequested;
             _xpColletableAttractor.XPCollected += OnAttractorXPCollected;
             _shooter.Shot += OnShooterShot;
+            _shooter.WeaponChanged += OnShooterWeaponChanged;
         }
+
+        private void Start()
+        {
+            _playerAnimation.SetAnimationController(_shooter.Weapon.Controller);
+        }
+
 
         private void OnDisable()
         {
@@ -70,6 +78,12 @@ namespace GFA.TDS.Mediators
             _gameInput.Player.Dodge.performed -= OnDodgeRequested;
             _xpColletableAttractor.XPCollected -= OnAttractorXPCollected;
             _shooter.Shot -= OnShooterShot;
+            _shooter.WeaponChanged -= OnShooterWeaponChanged;
+        }
+        
+        private void OnShooterWeaponChanged(Weapon weapon)
+        {
+            _playerAnimation.SetAnimationController(weapon.Controller);
         }
 
         private void OnShooterShot()

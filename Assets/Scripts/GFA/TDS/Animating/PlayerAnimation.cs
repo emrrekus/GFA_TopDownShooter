@@ -21,6 +21,8 @@ namespace GFA.TDS.Animating
                 (transformedVelocity.magnitude < 0.01f ? 3 : 8) * Time.deltaTime);
             _animator.SetFloat(Horizontal, _appliedVelocity.x);
             _animator.SetFloat(Vertical, _appliedVelocity.z);
+            
+            
         }
 
 

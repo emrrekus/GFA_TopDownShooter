@@ -1,16 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponParticleFX : WeaponFX
+namespace GFA.TDS.WeaponSystem.FX
 {
-    [SerializeField]
-    private ParticleSystem[] _particleSystems;
-    protected override void OnShot()
+    public class WeaponParticleFX : WeaponFX
     {
-        foreach (var p in _particleSystems)
+        [SerializeField]
+        private ParticleSystem[] _particleSystems;
+        protected override void OnShot()
         {
-            p.Play();
+            foreach (var p in _particleSystems)
+            {
+                p.Play();
+            }
         }
     }
 }

@@ -7,6 +7,9 @@ namespace GFA.TDS.Audio
     {
         [SerializeField] private AudioClip [] _audioClips;
 
+        [SerializeField] private float _volume;
+        
+
         public AudioClip Get()
         {
             return _audioClips[Random.Range(0, _audioClips.Length)];
@@ -14,7 +17,7 @@ namespace GFA.TDS.Audio
 
         public void PlayOneShot(AudioSource source)
         {
-            source.PlayOneShot(Get());
+            source.PlayOneShot(Get(), _volume);
         }
     }
 }

@@ -1,9 +1,10 @@
 using System;
+using GFA.TDS.Mediators;
 using UnityEngine;
 
 namespace GFA.TDS.MatchSystem
 {
-    public class EnemyAttacker : MonoBehaviour,IDamageExecutor
+    public class EnemyAttacker : MonoBehaviour, IDamageExecutor
     {
         [SerializeField] private float _damage;
 
@@ -28,29 +29,27 @@ namespace GFA.TDS.MatchSystem
             if (!CanAttack) return;
             _lastAttack = Time.time;
             Attacked?.Invoke(target);
-       
+            _currentTarget = target;
+            IsCurrentlyAttacking = true;
         }
 
         public void ExecuteDamage()
         {
-        
-            if(_currentTarget == null) return;
-            
+            if (_currentTarget == null) return;
+
             if (_currentTarget is MonoBehaviour mb)
             {
                 if (Vector3.Distance(mb.transform.position, transform.position) < _range)
                 {
                     _currentTarget.ApplyDamage(_damage);
                 }
-                else
-                {
-                    _currentTarget.ApplyDamage(_damage);
-                }
             }
-            IsCurrentlyAttacking = false; 
-        
-        }
+            else
+            {
+                _currentTarget.ApplyDamage(_damage);
+            }
 
-  
+            IsCurrentlyAttacking = false;
+        }
     }
 }

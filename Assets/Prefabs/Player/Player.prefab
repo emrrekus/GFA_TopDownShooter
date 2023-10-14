@@ -204,9 +204,8 @@ MonoBehaviour:
     _movementSpeed: 5
     _attackSpeed: 1
     _defence: 0
-    _maxHealth: 0
+    _maxHealth: 10
   _dodgePower: 5
-  _health: 10
 --- !u!114 &772595629482870957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,7 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 080a36f3be7465e4ca4762f6d3314637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weapon: {fileID: 11400000, guid: 18b370e85ec4fd042b0c3bf6c981c2d5, type: 2}
+  _weapon: {fileID: 11400000, guid: 014c222ec7bde0342ae0222887b297da, type: 2}
   _defaultProjectilePrefab: {fileID: 8399190721041072383, guid: 2a50b587dbf4e8646ac8292f1d621c8d,
     type: 3}
   _boneSocketContainer: {fileID: 7626427691548351666}

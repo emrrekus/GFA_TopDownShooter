@@ -16,10 +16,9 @@ namespace GFA.TDS.Mediators
 {
     public class PlayerMediator : MonoBehaviour, IDamageable
     {
-        [SerializeField]
-        private Attributes _attributes;
+        [SerializeField] private Attributes _attributes;
         public Attributes Attributes => _attributes;
-        
+
         private CharacterMovement _characterMovement;
         private Shooter _shooter;
         private XPColletableAttractor _xpColletableAttractor;
@@ -40,11 +39,15 @@ namespace GFA.TDS.Mediators
         private Plane _plane = new(Vector3.up, Vector3.zero);
 
         private Camera _camera;
+        
+        private float _health;
 
-        [SerializeField] private float _health;
+        public float Health => _health;
+       
+
 
         public event Action<int> LevelledUp;
-      
+
 
         private void Awake()
         {
@@ -68,6 +71,7 @@ namespace GFA.TDS.Mediators
 
         private void Start()
         {
+            _health = _attributes.MaxHealth;
             _playerAnimation.SetAnimationController(_shooter.Weapon.Controller);
         }
 
@@ -80,7 +84,7 @@ namespace GFA.TDS.Mediators
             _shooter.Shot -= OnShooterShot;
             _shooter.WeaponChanged -= OnShooterWeaponChanged;
         }
-        
+
         private void OnShooterWeaponChanged(Weapon weapon)
         {
             _playerAnimation.SetAnimationController(weapon.Controller);
@@ -110,13 +114,15 @@ namespace GFA.TDS.Mediators
         {
             _level++;
             _xp = 0;
-            if(PopupChannel.TryGetPopup<BoosterSelectionPopup>(out var popup))
+            if (PopupChannel.TryGetPopup<BoosterSelectionPopup>(out var popup))
             {
                 popup.TargetBoosterContainer = _boosterContainer;
                 popup.Open();
             }
+
             LevelledUp?.Invoke(_level);
         }
+
         private void OnDodgeRequested(InputAction.CallbackContext obj)
         {
             _characterMovement.ExternalForce += _characterMovement.Velocity.normalized * _dodgePower;
@@ -175,7 +181,7 @@ namespace GFA.TDS.Mediators
 
         public void ApplyDamage(float damage, GameObject causer = null)
         {
-            _health -= damage * (1-Attributes.Defence) ;
+            _health -= damage * (1 - Attributes.Defence);
         }
     }
 }

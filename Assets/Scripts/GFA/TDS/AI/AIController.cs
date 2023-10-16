@@ -8,7 +8,6 @@ namespace GFA.TDS.AI
     {
         [SerializeField]
         private AIBehaviour _aiBehaviour;
-
         public AIBehaviour AIBehaviour
         {
             get => _aiBehaviour;
@@ -18,23 +17,30 @@ namespace GFA.TDS.AI
                 {
                     _aiBehaviour.End(this);
                 }
+
                 _aiBehaviour = value;
 
                 if (_aiBehaviour)
                 {
                     BeginBehaviour();
                 }
-                    
             }
         }
 
         private AIState _aiState;
+
         private void Awake()
         {
+           
             if (_aiBehaviour)
             {
                 BeginBehaviour();
             }
+        }
+
+        private void Start()
+        {
+            enabled = true;
         }
 
         private void BeginBehaviour()
@@ -53,7 +59,6 @@ namespace GFA.TDS.AI
 
         public bool TryGetState<T>(out T state) where T : AIState
         {
-            
             if (_aiState is T casted)
             {
                 state = casted;
@@ -65,6 +70,5 @@ namespace GFA.TDS.AI
                 return false;
             }
         }
-        
     }
 }

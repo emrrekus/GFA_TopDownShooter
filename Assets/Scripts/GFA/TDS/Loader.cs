@@ -10,16 +10,21 @@ namespace GFA.TDS
     {
         [SerializeField] private int _sceneToLoadIndex;
         [SerializeField] private Image _progressBar;
+        private AsyncOperation _operation;
         
 
         private IEnumerator Start()
         {
             yield return new WaitForEndOfFrame();
-            var operation = SceneManager.LoadSceneAsync(_sceneToLoadIndex);
-            while (operation.isDone == false)
+            _operation = SceneManager.LoadSceneAsync(_sceneToLoadIndex);
+           
+        }
+
+        private void Update()
+        {
+            if (_operation != null)
             {
-                _progressBar.fillAmount = operation.progress;
-                yield return null;
+                _progressBar.fillAmount = _operation.progress;
             }
         }
     }

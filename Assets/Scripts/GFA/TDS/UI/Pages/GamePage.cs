@@ -25,7 +25,7 @@ namespace GFA.TDS.UI.Pages
 
         private void OnPlayButtonClicked()
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene("Loading");
         }
     }
 }

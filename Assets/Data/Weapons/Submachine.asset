@@ -23,3 +23,4 @@ MonoBehaviour:
     type: 3}
   _boneSocketName: RightHandSocket_Rifle
   _animatorController: {fileID: 9100000, guid: d15bd8326d950a04bbe9d4033206f1af, type: 2}
+  _icon: {fileID: 21300000, guid: 0d7e214df7639078f8a1fee2e3ed33c9, type: 3}

@@ -1,3 +1,4 @@
+using Unity.VisualScripting.FullSerializer;
 using UnityEditor.Animations;
 using UnityEngine;
 
@@ -38,6 +39,10 @@ namespace GFA.TDS.WeaponSystem
         private RuntimeAnimatorController _animatorController;
 
         public RuntimeAnimatorController Controller => _animatorController;
+
+        [SerializeField] private Sprite _icon;
+
+        public Sprite Icon => _icon;
 
     }
 }

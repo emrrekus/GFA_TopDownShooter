@@ -8,10 +8,14 @@ namespace GFA.TDS.UI.Pages
     public class GamePage : Page
     {
         [SerializeField] private Button _playbutton;
+
+        [SerializeField] private Animator _animator;
+        
         
         protected override void OnOpened()
         {
         _playbutton.onClick.AddListener(OnPlayButtonClicked); 
+        _animator.Play("GameScreen");
         }
 
         protected override void OnClosed()
